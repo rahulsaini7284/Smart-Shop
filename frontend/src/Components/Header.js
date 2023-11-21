@@ -12,6 +12,7 @@ const Header = () => {
   const dispatch = useDispatch();
 
   const { userInfo } = useSelector((state) => state.userLogin);
+  const { cartItems } = useSelector((state) => state.cart);
 
   const logoutHandler = (e) => {
     dispatch(userLogoutAction());
@@ -32,6 +33,20 @@ const Header = () => {
               <LinkContainer to="/cart">
                 <Nav.Link>
                   <i className="fa-solid fa-cart-shopping" /> Cart
+                  <span
+                    style={{
+                      position: "relative",
+                      backgroundColor: "gray",
+                      borderRadius: "50%",
+                      textAlign: "center",
+                      padding: "0 3px",
+                      height: "17px",
+                      left: "-49px",
+                      top: "-9px",
+                    }}
+                  >
+                    {cartItems && cartItems.length}
+                  </span>
                 </Nav.Link>
               </LinkContainer>
               {userInfo ? (

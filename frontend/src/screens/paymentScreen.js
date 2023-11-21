@@ -42,13 +42,6 @@ const PaymentScreen = () => {
                 checked
                 onChange={(e) => setPaymentMethod(e.target.value)}
               ></Form.Check>
-              <Form.Check
-                type="radio"
-                value="cod"
-                label="Cash On Delivery"
-                name="paymentMethod"
-                onChange={(e) => setPaymentMethod(e.target.value)}
-              ></Form.Check>
             </Col>
           </Form.Group>
           <Button className="mt-3" variant="primary" type="submit">

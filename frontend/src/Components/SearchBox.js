@@ -16,7 +16,7 @@ const SearchBox = () => {
   };
 
   return (
-    <Form inline onSubmit={submitHandler}>
+    <Form inline onSubmit={submitHandler} style={{ margin: "4px 0" }}>
       <Row>
         <Col xs="auto">
           <Form.Control
