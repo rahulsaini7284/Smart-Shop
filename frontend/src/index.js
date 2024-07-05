@@ -8,11 +8,17 @@ import App from "./App";
 import reportWebVitals from "./reportWebVitals";
 import store from "./redux/store";
 
+import { GoogleOAuthProvider } from "@react-oauth/google";
+
+console.log(process.env.GOOGLE_CLIENT_ID);
+
 const root = ReactDOM.createRoot(document.getElementById("root"));
 root.render(
-  <Provider store={store}>
-    <App />
-  </Provider>
+  <GoogleOAuthProvider clientId="702079746320-aj5svabst6s2cstt92h59q4evatsg9iq.apps.googleusercontent.com">
+    <Provider store={store}>
+      <App />
+    </Provider>
+  </GoogleOAuthProvider>
 );
 
 // If you want to start measuring performance in your app, pass a function

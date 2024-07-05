@@ -293,11 +293,7 @@ export const adminUserUpdateAction =
         },
       };
 
-      const { data } = await axios.put(
-        `/api/users/admin/${id}`,
-        DATA,
-        config
-      );
+      const { data } = await axios.put(`/api/users/admin/${id}`, DATA, config);
       dispatch({
         type: ADMIN_USER_UPDATE_SUCCESS,
       });

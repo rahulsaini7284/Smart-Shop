@@ -215,7 +215,7 @@ const ProfileScreen = () => {
                       )}
                     </td>
                     <td className="text-center">
-                      {!order.deliverdAt ? (
+                      {!order.deliveredAt ? (
                         <i
                           className="fa-regular fa-circle-xmark  fa-xl"
                           style={{ color: "#c70000" }}

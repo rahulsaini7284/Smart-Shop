@@ -33,7 +33,7 @@ const OrdersListScreen = () => {
       dispatch(userLoginResetAction());
     }
   }, [dispatch, userInfo, navigate, pageNumber, error]);
-  let x=0;
+  let x = 0;
 
   return (
     <>
@@ -43,72 +43,78 @@ const OrdersListScreen = () => {
         <Loader />
       ) : error ? (
         <Message message={error} varient={"danger"} />
-      ) : ordersList&&(
-        <>
-          <Table responsive striped hover bordered className="table-sm">
-            <thead>
-              <tr>
-                <th className="text-center">S NO</th>
-                <th className="text-center">ID</th>
-                <th className="text-center">USER</th>
-                <th className="text-center">DATE</th>
-                <th className="text-center">TOTAL</th>
-                <th className="text-center">PAID</th>
-                <th className="text-center">DELIVERED</th>
-                <th className="text-center"></th>
-              </tr>
-            </thead>
-            <tbody>
-              {ordersList.map((order) => (
-                <tr key={order._id}>
-                  <td className="text-center">{x+=1}</td>
-                  <td className="text-center">{order._id}</td>
-                  <td className="text-center">
-                    {order.user && order.user.name}
-                  </td>
-                  <td className="text-center">
-                    {order.createdAt.substring(0, 10)}
-                  </td>
-                  <td className="text-center">{order.totalPrice}</td>
-                  <td className="text-center">
-                    {" "}
-                    {!order.paidAt ? (
-                      <i
-                        className="fa-regular fa-circle-xmark  fa-xl "
-                        style={{ color: "#c70000" }}
-                      ></i>
-                    ) : (
-                      order.paidAt.substring(0, 10)
-                    )}
-                  </td>
-                  <td className="text-center">
-                    {" "}
-                    {!order.deliveredAt ? (
-                      <i
-                        className="fa-regular fa-circle-xmark  fa-xl "
-                        style={{ color: "#c70000" }}
-                      ></i>
-                    ) : (
-                      order.deliveredAt.substring(0, 10)
-                    )}
-                  </td>
-
-                  <td className="text-center">
-                    <LinkContainer to={`/order/${order._id}`}>
-                      <Button variant="light" className="btn-sm">
-                        <i
-                          className="fa-solid fa-circle-info fa-2xl"
-                          style={{ color: "#e07800" }}
-                        ></i>
-                      </Button>
-                    </LinkContainer>
-                  </td>
+      ) : (
+        ordersList && (
+          <>
+            <Table responsive striped hover bordered className="table-sm">
+              <thead>
+                <tr>
+                  <th className="text-center">S NO</th>
+                  <th className="text-center">ID</th>
+                  <th className="text-center">USER</th>
+                  <th className="text-center">DATE</th>
+                  <th className="text-center">TOTAL</th>
+                  <th className="text-center">PAID</th>
+                  <th className="text-center">DELIVERED</th>
+                  <th className="text-center"></th>
                 </tr>
-              ))}
-            </tbody>
-          </Table>
-          <Paginate page={page} pages={pages} component={"OrdersListScreen"} />
-        </>
+              </thead>
+              <tbody>
+                {ordersList.map((order) => (
+                  <tr key={order._id}>
+                    <td className="text-center">{(x += 1)}</td>
+                    <td className="text-center">{order._id}</td>
+                    <td className="text-center">
+                      {order.user && order.user.name}
+                    </td>
+                    <td className="text-center">
+                      {order.createdAt.substring(0, 10)}
+                    </td>
+                    <td className="text-center">{order.totalPrice}</td>
+                    <td className="text-center">
+                      {" "}
+                      {!order.paidAt ? (
+                        <i
+                          className="fa-regular fa-circle-xmark  fa-xl "
+                          style={{ color: "#c70000" }}
+                        ></i>
+                      ) : (
+                        order.paidAt.substring(0, 10)
+                      )}
+                    </td>
+                    <td className="text-center">
+                      {" "}
+                      {!order.deliveredAt ? (
+                        <i
+                          className="fa-regular fa-circle-xmark  fa-xl "
+                          style={{ color: "#c70000" }}
+                        ></i>
+                      ) : (
+                        order.deliveredAt.substring(0, 10)
+                      )}
+                    </td>
+
+                    <td className="text-center">
+                      <LinkContainer to={`/order/${order._id}`}>
+                        <Button variant="light" className="btn-sm">
+                          <i
+                            className="fa-solid fa-circle-info fa-2xl"
+                            style={{ color: "#e07800" }}
+                          ></i>
+                        </Button>
+                      </LinkContainer>
+                    </td>
+                  </tr>
+                ))}
+              </tbody>
+            </Table>
+            <Paginate
+              page={page}
+              pages={pages}
+              component={"OrdersListScreen"}
+            />
+          </>
+        )
       )}
     </>
   );

@@ -8,7 +8,6 @@ import { genrateToken } from "../utils/genrateToken.js";
 //@access  Public
 export const authUser = asyncHandler(async (req, res) => {
   const { email, password } = req.body;
-
   const user = await User.findOne({ email });
   // const passwordMatchResult = await bcrypt
   //   .compare(password, user.password)
@@ -82,7 +81,6 @@ export const updateUserProfile = asyncHandler(async (req, res) => {
 
 export const registerUser = asyncHandler(async (req, res) => {
   const { name, email, password } = req.body;
-
   const pass = await bcrypt.hash(password, 10);
   const userExist = await User.findOne({ email });
   if (userExist) {
