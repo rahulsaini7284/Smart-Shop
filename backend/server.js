@@ -22,13 +22,21 @@ app.use("/api/upload", uploadRoute);
 app.use("/api/config/paypal", (req, res) =>
   res.send(process.env.PAYPAL_CLIENT_ID)
 );
+app.use("/app_id", (req, res) => {
+  res.send(process.env.APPID);
+});
+app.use("/client_id", (req, res) => {
+  res.send(process.env.CLIENTID);
+});
 
 const __dirname = path.dirname("");
 app.use("/uploads", express.static(path.join(__dirname, "/uploads")));
 
 app.use(express.static(path.join(__dirname, "/frontend/build")));
 app.get("*", (req, res) => {
-  res.sendFile("/frontend/build/index.html",{root:__dirname},
+  res.sendFile(
+    "/frontend/build/index.html",
+    { root: __dirname },
     function (err) {
       if (err) {
         res.status(500).send(err);

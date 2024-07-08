@@ -4,6 +4,7 @@ import { Button, Col, Form, FormGroup, Row, Spinner } from "react-bootstrap";
 import { Link } from "react-router-dom";
 import { useNavigate, useLocation } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
+import axios from "axios";
 
 import {
   userDetailsAction,
@@ -20,6 +21,7 @@ import { LoginSocialFacebook } from "reactjs-social-login";
 const LoginScreen = () => {
   const [show, setShow] = useState(false);
   const [email, setEmail] = useState("");
+  const [appId, setAppId] = useState("");
   const navigate = useNavigate();
   const [password, setPassword] = useState("");
   const location = useLocation();
@@ -43,6 +45,11 @@ const LoginScreen = () => {
   }, [user, redirect, userInfo, userDetailsError, navigate]);
 
   useEffect(() => {
+    async function getAppId() {
+      const { data } = await axios("/app_id");
+      setAppId(data);
+    }
+    getAppId().catch((err) => console.log(err.message));
     if (userInfo) {
       dispatch(userDetailsAction("profile"));
     }
@@ -172,32 +179,34 @@ const LoginScreen = () => {
                 console.log("Login Failed");
               }}
             />
-            <LoginSocialFacebook
-              appId="468891425888283"
-              onResolve={(res) => {
-                setFacebookData({
-                  email: res.data.email,
-                  password: `${res.data.id}+${res.data.first_name}+${res.data.email}`,
-                });
-                dispatch(
-                  userRegisterAction({
+            {appId && (
+              <LoginSocialFacebook
+                appId={appId}
+                onResolve={(res) => {
+                  setFacebookData({
                     email: res.data.email,
                     password: `${res.data.id}+${res.data.first_name}+${res.data.email}`,
-                    name: res.data.name,
-                  })
-                );
-              }}
-              onReject={(err) => console.log(err)}
-            >
-              <FacebookLoginButton
-                style={{
-                  width: "210.5px",
-                  marginTop: "1rem",
-                  marginLeft: "0",
-                  fontSize: "1rem",
+                  });
+                  dispatch(
+                    userRegisterAction({
+                      email: res.data.email,
+                      password: `${res.data.id}+${res.data.first_name}+${res.data.email}`,
+                      name: res.data.name,
+                    })
+                  );
                 }}
-              />
-            </LoginSocialFacebook>
+                onReject={(err) => console.log(err)}
+              >
+                <FacebookLoginButton
+                  style={{
+                    width: "210.5px",
+                    marginTop: "1rem",
+                    marginLeft: "0",
+                    fontSize: "1rem",
+                  }}
+                />
+              </LoginSocialFacebook>
+            )}
           </Col>
         </Row>
       </Form>
